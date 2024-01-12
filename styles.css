@@ -1,0 +1,151 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  width: min(1440px, 100%);
+  height: 100dvh;
+  padding: 200px;
+  margin: 0 auto;
+
+  background-color: aliceblue;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.container {
+  display: block;
+
+  position: relative;
+
+  width: 560px;
+  height: 190px;
+
+  padding: 20px 40px;
+
+  border-radius: 348px;
+  background: var(--bc);
+  box-shadow:
+      0 -4px 4px 0 #C2C7D0,
+      0 5px 20px 0 rgba(35, 39, 55, 0.60) inset,
+      0 6px 4px 0 rgba(255, 255, 255, 0.50);
+  overflow: hidden;
+  cursor: pointer;
+
+  transition: background-color 0.75s linear;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: var(--moon-deco-position-y);
+    left: 50px;
+
+    background-image: url("img/stars.svg");
+
+    width: 310px;
+    height: 131.951px;
+
+    transition: bottom 0.75s linear;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: var(--sun-deco-position-y);
+    right: -60px;
+
+    background-image: url("img/clouds.svg");
+
+    width: 566px;
+    height: 300px;
+
+    transition: top 0.75s linear;
+  }
+}
+
+.sun-moon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  z-index: 1;
+
+  width: 150px;
+  height: 150px;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  transform: translateX(var(--shape-position));
+  filter: drop-shadow(2px 4px 15px rgba(35, 39, 55, 0.50));
+
+  box-shadow:
+      var(--shape-deco-position-1) 0 0 88px rgba(255,255,255, 0.1),
+      var(--shape-deco-position-2) 0 0 120px rgba(255,255,255, 0.1),
+      var(--shape-deco-position-3) 0 0 148px rgba(255,255,255, 0.1);
+
+  transition: all 0.75s linear;
+
+  & > * {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  .sun {
+    z-index: 1;
+
+    background-image: url("img/sun.svg");
+  }
+  .moon {
+    z-index: 2;
+
+    background-image: url("img/moon.svg");
+
+    transform: translateX(var(--moon-position));
+
+    transition: transform 0.75s linear 0.01s;
+  }
+}
+
+input:not(:checked) ~ * {
+  --bc: #2B87DC;
+
+  --shape-position: 0;
+  --shape-deco-position-1: -26px;
+  --shape-deco-position-2: 6px;
+  --shape-deco-position-3: 34px;
+
+  --moon-position: 100%;
+
+  --sun-deco-position-y: -30px;
+  --moon-deco-position-y: 100%;
+}
+input:checked ~ * {
+  --bc: #232737;
+
+  --shape-position: calc(560px - 80px - 150px);
+  --shape-deco-position-1: 26px;
+  --shape-deco-position-2: -6px;
+  --shape-deco-position-3: -34px;
+
+  --moon-position: 0;
+
+  --sun-deco-position-y: 100%;
+  --moon-deco-position-y: 29px;
+}
